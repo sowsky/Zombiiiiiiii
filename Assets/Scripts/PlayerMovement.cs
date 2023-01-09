@@ -1,25 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public LayerMask ground;
+    private float isMove;
 
-    public float isMove;
-    public bool isDead = true;
+    private PlayerInput playerInput;
+    private PlayerStat playerStat;
+    private Rigidbody playerRigidbody;
+    private Animator animationController;
 
-    public float moveV;
-    public float moveH;
+    private Camera mainCamera;
+    public GameObject Center;
 
-    public PlayerInput playerInput;
-    public PlayerStat playerStat;
-    public Rigidbody playerRigidbody;
-    public Animator animationController;
-
-    public 
+    private Plane GroupPlane;
 
     void Start()
     {
@@ -27,22 +22,34 @@ public class PlayerMovement : MonoBehaviour
         animationController = GetComponent<Animator>();
         playerInput = new PlayerInput();
         playerStat = new PlayerStat();
+        mainCamera = Camera.main;
+        GroupPlane = new Plane(Vector3.up, Vector3.zero);
     }
 
     void Update()
     {
-        moveV = Input.GetAxis(playerInput.moveVAxisName);
-        moveH = Input.GetAxis(playerInput.moveHAxisName);
+        Move();
+        Rotate();
+    }
+    private void Move()
+    {
+        var direction = Center.transform.forward * playerInput.moveV;
+        direction += Center.transform.right * playerInput.moveH;
 
-        var direction = transform.forward * moveV;
-        direction += transform.right * moveH;
         playerRigidbody.MovePosition(transform.position + direction * playerStat.speed * Time.deltaTime);
 
         isMove = direction.magnitude;
-        animationController.SetBool("isDead", isDead);
         animationController.SetFloat("isMove", isMove);
+    }
 
-        //Quaternion newRotate = Quaternion.LookRotation(Input.mousePosition);
-        //playerRigidbody.rotation = Quaternion.Lerp(playerRigidbody.rotation, newRotate, playerStat.speed);
+    private void Rotate()
+    {
+        Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+        float rayLength;
+        if (GroupPlane.Raycast(cameraRay, out rayLength))
+        {
+            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
+        }
     }
 }

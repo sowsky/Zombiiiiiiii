@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public string moveVAxisName = "Vertical";
-    public string moveHAxisName = "Horizontal";
-    public string fireButtonName = "Fire1";
+    public string Vertical = "Vertical";
+    public string Horizontal = "Horizontal";
+    public string Fire = "Fire1";
 
-    void Start()
-    {
-        
-    }
+    public float moveV;
+    public float moveH;
+    public bool fire;
 
-    void Update()
+    private void Update()
     {
-        
+        moveV = Input.GetAxis(Vertical);
+        moveH = Input.GetAxis(Horizontal);
+        fire = Input.GetButton(Fire);
     }
 }
