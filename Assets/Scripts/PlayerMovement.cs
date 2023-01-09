@@ -20,13 +20,13 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRigidbody = GetComponent<Rigidbody>();
         animationController = GetComponent<Animator>();
-        playerInput = new PlayerInput();
+        playerInput = GetComponent<PlayerInput>();
         playerStat = new PlayerStat();
         mainCamera = Camera.main;
         GroupPlane = new Plane(Vector3.up, Vector3.zero);
     }
 
-    void Update()
+    private void Update()
     {
         Move();
         Rotate();
