@@ -14,21 +14,25 @@ public class PlayerShooter : MonoBehaviour
     private UiManager uiMgr;
     public AudioClip Shootsound;
     private AudioSource audio;
+    private PlayerManager playerMgr;
+    private PlayerStat playerStat;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         lineRenderer = GetComponent<LineRenderer>();
         uiMgr = UiManager.instance;
-        audio=GetComponent<AudioSource>(); 
+        audio = GetComponent<AudioSource>();
+        playerMgr = GetComponent<PlayerManager>();
+        playerStat = new PlayerStat();
     }
 
     void Update()
-    {   
+    {
         if (uiMgr.isPause)
             return;
-
-        if (playerInput.fire && Time.time - lastFireTime > shotDelay)
+                
+        if (playerInput.fire && Time.time - lastFireTime > shotDelay && playerMgr.alive)
             Shot();
     }
 
@@ -48,7 +52,7 @@ public class PlayerShooter : MonoBehaviour
                 var hitPoint = hit.collider.ClosestPoint(transform.position);
                 var hitNormal = transform.position - hit.transform.position;
                 var temp = hit.collider.GetComponent<Monster>();
-                temp.hp -= 50;
+                temp.hp -= playerStat.damage;
                 temp.hit(hitPoint, hitNormal);
               
             }
