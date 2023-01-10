@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using Unity.VisualScripting;
 
 public class UiManager : MonoBehaviour
 {
@@ -10,6 +13,9 @@ public class UiManager : MonoBehaviour
     public GameObject pauseMenu;
     private static UiManager uiMgr;
     private SoundManager soundMgr;
+    public TextMeshProUGUI score;
+    public TextMeshProUGUI gameover;
+    private int scorenum = 0;
 
     public static UiManager instance
     {
@@ -20,7 +26,6 @@ public class UiManager : MonoBehaviour
     }
     void Start()
     {
-        
     }
 
     void Update()
@@ -30,13 +35,24 @@ public class UiManager : MonoBehaviour
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             if(pauseMenu.activeSelf)
             {
-                if (soundMgr != null)
+                if (soundMgr == null)
                     soundMgr = FindObjectOfType<SoundManager>();
-
-                soundMgr.effects = FindObjectsOfType<AudioSource>();
+                
+                if (soundMgr != null)
+                    soundMgr.effects = FindObjectsOfType<AudioSource>();
             }
             Pause();
         }
+    }
+
+    public void Score(int num)
+    {
+        scorenum += num;
+        score.text = "SCORE : " + scorenum;
+    }
+
+    public void GameOver() {
+        gameover.gameObject.SetActive(true);
     }
 
     private void Pause()

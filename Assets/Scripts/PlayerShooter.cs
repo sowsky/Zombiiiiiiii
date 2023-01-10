@@ -12,7 +12,6 @@ public class PlayerShooter : MonoBehaviour
     private LineRenderer lineRenderer;
     public ParticleSystem gunParticle;
     private UiManager uiMgr;
-    public ParticleSystem blood;
     public AudioClip Shootsound;
     private AudioSource audio;
 
@@ -50,9 +49,8 @@ public class PlayerShooter : MonoBehaviour
                 var hitNormal = transform.position - hit.transform.position;
                 var temp = hit.collider.GetComponent<Monster>();
                 temp.hp -= 50;
-                blood.transform.position = hitPoint;
-                blood.transform.rotation = Quaternion.LookRotation(hitNormal);
-                blood.Play();
+                temp.hit(hitPoint, hitNormal);
+              
             }
         }
         else

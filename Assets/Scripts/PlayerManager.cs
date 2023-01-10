@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -26,8 +27,22 @@ public class PlayerManager : MonoBehaviour
             // Debug.Log(hp);
             anim.SetTrigger("Death");
             alive = false;
+            var colliders = GetComponents<Collider>();
+            foreach (var collider in colliders)
+            {
+                collider.enabled = false;
+            }
+            UiManager.instance.GameOver();
+            StartCoroutine(Restart());
         }
       
+    }
+
+    private IEnumerator Restart()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 
     private void OnTriggerStay(Collider other)
