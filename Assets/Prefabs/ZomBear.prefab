@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3055038601926228980}
   m_Layer: 0
   m_Name: ZomBear
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 50
   speed: 0
-  damage: 0
+  damage: 20
   hurtclip: {fileID: 8300000, guid: 1d4840678e677424b8921716c72397ea, type: 3}
   deathclip: {fileID: 8300000, guid: 62366b8d2c37a49dca550841c741317f, type: 3}
   audio: {fileID: 0}
@@ -226,8 +226,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.86610085, y: 1.2021863, z: 0.59640646}
-  m_Center: {x: -0.0034976304, y: 0.6065589, z: 0.23599064}
+  m_Size: {x: 1.4004104, y: 1.2021863, z: 0.68713826}
+  m_Center: {x: -0.023660302, y: 0.6065589, z: 0.28135654}
 --- !u!82 &3055038601926228980
 AudioSource:
   m_ObjectHideFlags: 0

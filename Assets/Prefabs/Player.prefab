@@ -437,6 +437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotPos: {fileID: 1895414687426699188}
   gunParticle: {fileID: 1895414687838101196}
+  blood: {fileID: 19800000, guid: ef39ae7291c751249b296f00bf6fb042, type: 3}
+  Shootsound: {fileID: 8300000, guid: fa7f046ce321d4021b5e753bf1152916, type: 3}
 --- !u!1001 &1895414687853166860
 PrefabInstance:
   m_ObjectHideFlags: 0

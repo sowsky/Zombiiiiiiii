@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStat playerStat;
     private Rigidbody playerRigidbody;
     private Animator animationController;
+    private PlayerManager mgr;
     private Camera mainCamera;
     public GameObject Center;
 
@@ -26,11 +27,15 @@ public class PlayerMovement : MonoBehaviour
         GroupPlane = new Plane(Vector3.up, Vector3.zero);
         playerInput = PlayerInput.instance;
         uiMgr = UiManager.instance;
+        mgr = GetComponent<PlayerManager>();
     }
 
     private void Update()
     {
-        if (!uiMgr.isPause)
+        if (uiMgr.isPause)
+            return;
+
+        if (mgr.alive)
         {
             Move();
             Rotate();

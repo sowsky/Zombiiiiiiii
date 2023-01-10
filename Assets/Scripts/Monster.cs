@@ -11,21 +11,25 @@ public class Monster : MonoBehaviour
     public int speed;
     public int damage;
     private GameObject player;
+    private PlayerManager playermanager;
     public AudioClip hurtclip;
     public AudioClip deathclip;
     public AudioSource audio;
+    private CapsuleCollider cap;
     private bool Isdead;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playermanager= player.GetComponent<PlayerManager>();
         audio= GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         pathFinder = GetComponent<NavMeshAgent>();
         animator.SetBool("IsMoving", true);
         Isdead = false;
-
+        cap= GetComponent<CapsuleCollider>();
     }
+
     IEnumerator Destoryed(float delay)
     {
         audio.PlayOneShot(deathclip);
@@ -46,18 +50,22 @@ public class Monster : MonoBehaviour
 
         if (hp < 0&&!Isdead)
         {
-           
+            var colliders = GetComponents<Collider>();
+            foreach (var collider in colliders)
+            {
+                collider.enabled = false;
+            }
             StartCoroutine(Destoryed(3));
             Isdead = true;
         }
-        else if(!Isdead&&player.active)
+        else if(!Isdead&& playermanager.alive)
         {            
             if(Input.GetKeyDown(KeyCode.F)) {
                 hp = -1;
             }
             pathFinder.SetDestination(player.transform.position);
         }
-        if (!player.active)
+        if (!playermanager.alive)
         {
             pathFinder.isStopped = true;
 
