@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using Unity.VisualScripting;
 
 public class UiManager : MonoBehaviour
 {
     public bool isPause = false;
     public GameObject pauseMenu;
     private static UiManager uiMgr;
+    public TextMeshProUGUI score;
+    public TextMeshProUGUI gameover;
+    private int scorenum = 0;
     public static UiManager instance
     {
         get
@@ -16,7 +22,6 @@ public class UiManager : MonoBehaviour
     }
     void Start()
     {
-        
     }
 
     void Update()
@@ -26,6 +31,16 @@ public class UiManager : MonoBehaviour
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             Pause();
         }
+    }
+
+    public void Score(int num)
+    {
+        scorenum += num;
+        score.text = "SCORE : " + scorenum;
+    }
+
+    public void GameOver() {
+        gameover.gameObject.SetActive(true);
     }
 
     private void Pause()

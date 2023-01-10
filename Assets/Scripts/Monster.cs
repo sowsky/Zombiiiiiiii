@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
@@ -15,7 +17,9 @@ public class Monster : MonoBehaviour
     public AudioClip hurtclip;
     public AudioClip deathclip;
     public AudioSource audio;
+    public Text score;
     private CapsuleCollider cap;
+    public ParticleSystem hitEffect;
     private bool Isdead;
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,7 @@ public class Monster : MonoBehaviour
         animator.SetBool("IsMoving", true);
         Isdead = false;
         cap= GetComponent<CapsuleCollider>();
+        score = GetComponent<Text>();
     }
 
     IEnumerator Destoryed(float delay)
@@ -38,7 +43,7 @@ public class Monster : MonoBehaviour
 
         speed = 0;
         animator.SetTrigger("Death");
-
+        UiManager.instance.Score(10);
         yield return new WaitForSeconds(delay);
 
         Destroy(gameObject);
@@ -71,6 +76,13 @@ public class Monster : MonoBehaviour
 
             animator.SetBool("IsMoving", false);
         }
+    }
+
+    public void hit(Vector3 hitPoint, Vector3 hitNormal)
+    {
+        hitEffect.transform.position = hitPoint;
+        hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
+        hitEffect.Play();
     }
 
     //private IEnumerator UpdatePath()
