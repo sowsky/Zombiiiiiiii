@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 175512424174614614}
   m_Layer: 0
   m_Name: Hellephant
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 60
   speed: 0
-  damage: 0
+  damage: 40
   hurtclip: {fileID: 8300000, guid: fce027b40770a44298a6f5a4233bfb04, type: 3}
   deathclip: {fileID: 8300000, guid: 8c615fd0429f34edf85539d70279360d, type: 3}
   audio: {fileID: 0}
@@ -141,8 +141,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.0751042, y: 2.5792181, z: 1.8055903}
-  m_Center: {x: 0.038231373, y: 0.7896093, z: 0.93704957}
+  m_Size: {x: 2.8222208, y: 2.5792181, z: 2.2469082}
+  m_Center: {x: -0.019884408, y: 0.7896093, z: 1.1577086}
 --- !u!82 &175512424174614614
 AudioSource:
   m_ObjectHideFlags: 0
