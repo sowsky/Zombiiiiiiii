@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UiManager : MonoBehaviour
@@ -7,6 +9,8 @@ public class UiManager : MonoBehaviour
     public bool isPause = false;
     public GameObject pauseMenu;
     private static UiManager uiMgr;
+    private SoundManager soundMgr;
+
     public static UiManager instance
     {
         get
@@ -24,6 +28,13 @@ public class UiManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
+            if(pauseMenu.activeSelf)
+            {
+                if (soundMgr != null)
+                    soundMgr = FindObjectOfType<SoundManager>();
+
+                soundMgr.effects = FindObjectsOfType<AudioSource>();
+            }
             Pause();
         }
     }
@@ -47,4 +58,16 @@ public class UiManager : MonoBehaviour
             }
         }
     }
+
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+        isPause = false;
+    }    
 }
