@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,10 +8,10 @@ public class PlayerMovement : MonoBehaviour
     private float isMove;
 
     private PlayerInput playerInput;
+    private UiManager uiMgr;
     private PlayerStat playerStat;
     private Rigidbody playerRigidbody;
     private Animator animationController;
-
     private Camera mainCamera;
     public GameObject Center;
 
@@ -20,23 +21,30 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRigidbody = GetComponent<Rigidbody>();
         animationController = GetComponent<Animator>();
-        playerInput = GetComponent<PlayerInput>();
         playerStat = new PlayerStat();
         mainCamera = Camera.main;
         GroupPlane = new Plane(Vector3.up, Vector3.zero);
+        playerInput = PlayerInput.instance;
+        uiMgr = UiManager.instance;
     }
 
     private void Update()
     {
-        Move();
-        Rotate();
+        if (!uiMgr.isPause)
+        {
+            Move();
+            Rotate();
+        }
     }
     private void Move()
     {
         var direction = Center.transform.forward * playerInput.moveV;
+        direction.y = 0f;
         direction += Center.transform.right * playerInput.moveH;
         direction.y = 0f;
+
         var move = direction * playerStat.speed * Time.deltaTime;
+        move.y = 0f;
 
         playerRigidbody.MovePosition(transform.position + move);
 

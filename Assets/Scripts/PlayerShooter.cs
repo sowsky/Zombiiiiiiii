@@ -11,16 +11,18 @@ public class PlayerShooter : MonoBehaviour
     private float lastFireTime;
     private LineRenderer lineRenderer;
     public ParticleSystem gunParticle;
+    private UiManager uiMgr;
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         lineRenderer = GetComponent<LineRenderer>();
+        uiMgr = UiManager.instance;
     }
 
     void Update()
     {   
-        if (playerInput.fire && Time.time - lastFireTime > shotDelay)
+        if (playerInput.fire && Time.time - lastFireTime > shotDelay && !uiMgr.isPause)
             Shot();
     }
 
@@ -56,7 +58,7 @@ public class PlayerShooter : MonoBehaviour
         lineRenderer.SetPosition(1, hitPosition);
         lineRenderer.enabled = true;
 
-        yield return new WaitForSeconds(0.02f);
+        yield return new WaitForSeconds(0.01f);
 
         lineRenderer.enabled = false;
     }

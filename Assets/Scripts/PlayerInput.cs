@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    private static PlayerInput inputMgr;
+    public static PlayerInput instance
+    {
+        get
+        {
+            return inputMgr == null ? FindObjectOfType<PlayerInput>() : inputMgr;
+        }
+    }
+
     public string Vertical;
     public string Horizontal;
     public string Fire;
