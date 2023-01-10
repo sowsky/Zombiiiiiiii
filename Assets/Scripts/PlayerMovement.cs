@@ -35,8 +35,10 @@ public class PlayerMovement : MonoBehaviour
     {
         var direction = Center.transform.forward * playerInput.moveV;
         direction += Center.transform.right * playerInput.moveH;
+        direction.y = 0f;
+        var move = direction * playerStat.speed * Time.deltaTime;
 
-        playerRigidbody.MovePosition(transform.position + direction * playerStat.speed * Time.deltaTime);
+        playerRigidbody.MovePosition(transform.position + move);
 
         isMove = direction.magnitude;
         animationController.SetFloat("isMove", isMove);
