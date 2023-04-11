@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using TMPro;
 using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
@@ -24,7 +22,8 @@ public class Monster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
+        player = FindObjectOfType<PlayerMovement>().gameObject;
         playermanager= player.GetComponent<PlayerManager>();
         audio= GetComponent<AudioSource>();
         animator = GetComponent<Animator>();

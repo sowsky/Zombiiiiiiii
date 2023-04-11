@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class UiManager : MonoBehaviour
 {

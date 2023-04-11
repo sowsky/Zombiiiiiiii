@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     private float lasttimeattack;
  
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         anim= GetComponent<Animator>();
         alive = true;
